@@ -1,6 +1,11 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "guvi");
+$conn = new mysqli(
+    "sql12.freesqldatabase.com",
+    "sql12832550",
+    "evFylB8CHp",
+    "sql12832550"
+);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

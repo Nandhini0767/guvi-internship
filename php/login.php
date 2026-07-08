@@ -11,7 +11,12 @@ header('Content-Type: application/json');
 
 $redis = new Client();
 
-$conn = new mysqli("localhost", "root", "", "guvi");
+$conn = new mysqli(
+    "sql12.freesqldatabase.com",
+    "sql12832550",
+    "YOUR_DATABASE_PASSWORD",
+    "sql12832550"
+);
 
 if ($conn->connect_error) {
     echo json_encode([
