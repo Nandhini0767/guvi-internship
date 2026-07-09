@@ -37,7 +37,7 @@ try {
     }
 
     // MongoDB connection
-    $client = new Client("mongodb://localhost:27017");
+    $client = new Client("mongodb+srv://nandhini0767_db_user:Nandhini0767@cluster0.sg6lsth.mongodb.net/?appName=Cluster0");
     $db = $client->guvi;
     $collection = $db->profile;
 
