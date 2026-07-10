@@ -4,6 +4,8 @@ require 'vendor/autoload.php';
 
 use MongoDB\Client;
 
-$client = new Client("mongodb+srv://nandhini0767_db_user:Nandhini0767@cluster0.sg6lsth.mongodb.net/?appName=Cluster0");
+$client = new Client(getenv("MONGODB_URI"));
 
 $db = $client->guvi_internship;
+
+?>
