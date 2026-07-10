@@ -10,91 +10,115 @@ use Predis\Client as RedisClient;
 header('Content-Type: application/json');
 
 
-// Redis connection
-$redis = new RedisClient([
-    'scheme' => 'tcp',
-    'host' => getenv("REDISHOST"),
-    'port' => getenv("REDISPORT"),
-    'password' => getenv("REDISPASSWORD")
-]);
+try {
+
+    // Redis connection
+    $redis = new RedisClient([
+        'scheme' => 'tcp',
+        'host' => getenv("REDISHOST"),
+        'port' => getenv("REDISPORT"),
+        'password' => getenv("REDISPASSWORD")
+    ]);
 
 
-// MySQL connection
-$conn = new mysqli(
-    getenv("MYSQLHOST"),
-    getenv("MYSQLUSER"),
-    getenv("MYSQLPASSWORD"),
-    getenv("MYSQLDATABASE"),
-    getenv("MYSQLPORT")
-);
+    // MySQL connection
+    $conn = new mysqli(
+        getenv("MYSQLHOST"),
+        getenv("MYSQLUSER"),
+        getenv("MYSQLPASSWORD"),
+        getenv("MYSQLDATABASE"),
+        getenv("MYSQLPORT")
+    );
 
 
-if ($conn->connect_error) {
+    if ($conn->connect_error) {
+
+        echo json_encode([
+            "status" => "error",
+            "message" => "MySQL connection failed: " . $conn->connect_error
+        ]);
+
+        exit;
+    }
+
+
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+
+    // Find user
+    $stmt = $conn->prepare(
+        "SELECT id, name, email, password FROM users WHERE email = ?"
+    );
+
+    $stmt->bind_param("s", $email);
+
+    $stmt->execute();
+
+
+    $result = $stmt->get_result();
+
+    $user = $result->fetch_assoc();
+
+
+
+    if ($user && password_verify($password, $user["password"])) {
+
+
+        // Create token
+        $token = bin2hex(random_bytes(16));
+
+
+        // Store session in Redis
+        $redis->set($token, $user["id"]);
+
+        // Expire after 1 hour
+        $redis->expire($token, 3600);
+
+
+
+        echo json_encode([
+
+            "status" => "success",
+
+            "token" => $token,
+
+            "name" => $user["name"]
+
+        ]);
+
+
+    } else {
+
+
+        echo json_encode([
+
+            "status" => "error",
+
+            "message" => "Invalid email or password"
+
+        ]);
+
+    }
+
+
+    $stmt->close();
+
+    $conn->close();
+
+
+
+} catch (Exception $e) {
+
 
     echo json_encode([
+
         "status" => "error",
-        "message" => "DB connection failed"
-    ]);
 
-    exit;
-}
+        "message" => $e->getMessage()
 
-
-$email = $_POST["email"];
-$password = $_POST["password"];
-
-
-$stmt = $conn->prepare(
-    "SELECT id, name, email, password FROM users WHERE email = ?"
-);
-
-$stmt->bind_param("s", $email);
-
-$stmt->execute();
-
-
-$result = $stmt->get_result();
-
-$user = $result->fetch_assoc();
-
-
-
-if ($user && password_verify($password, $user["password"])) {
-
-
-    // Create session token
-    $token = bin2hex(random_bytes(16));
-
-
-    // Store session in Redis
-    $redis->set($token, $user["id"]);
-
-    // Token expires after 1 hour
-    $redis->expire($token, 3600);
-
-
-
-    echo json_encode([
-        "status" => "success",
-        "token" => $token,
-        "name" => $user["name"]
-    ]);
-
-
-} else {
-
-
-    echo json_encode([
-        "status" => "error",
-        "message" => "Invalid email or password"
     ]);
 
 }
-
-
-
-$stmt->close();
-
-$conn->close();
 
 ?>
