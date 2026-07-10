@@ -1,10 +1,11 @@
 <?php
 
 $conn = new mysqli(
-    "sql12.freesqldatabase.com",
-    "sql12832550",
-    "evFylB8CHp",
-    "sql12832550",
+    getenv("MYSQLHOST"),
+    getenv("MYSQLUSER"),
+    getenv("MYSQLPASSWORD"),
+    getenv("MYSQLDATABASE"),
+    getenv("MYSQLPORT")
 );
 
 if ($conn->connect_error) {
