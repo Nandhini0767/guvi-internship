@@ -5,47 +5,47 @@ body {
 }
 
 
-/* Form card */
+/* Main card */
 .card {
-    border-radius: 15px;
     width: 100%;
-    max-width: 550px;
+    max-width: 420px;
     margin: auto;
+    border-radius: 10px;
     border: none;
 }
 
 
-/* Card content spacing */
+/* Inside spacing */
 .card-body {
-    padding: 40px;
+    padding: 30px;
 }
 
 
 /* Heading */
 h2 {
-    white-space: nowrap;
+    font-size: 26px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 
 /* Labels */
 label {
     font-weight: 500;
-    margin-bottom: 5px;
 }
 
 
-/* Input fields */
+/* Input boxes */
 .form-control {
-    height: 45px;
-    border-radius: 8px;
+    height: 42px;
+    border-radius: 6px;
 }
 
 
 /* Buttons */
 .btn {
-    height: 45px;
-    border-radius: 8px;
+    height: 42px;
+    border-radius: 6px;
     font-weight: 500;
 }
 
@@ -53,7 +53,6 @@ label {
 /* Links */
 a {
     text-decoration: none;
-    font-weight: 500;
 }
 
 
@@ -62,15 +61,15 @@ a:hover {
 }
 
 
-/* Responsive design */
+/* Mobile view */
 @media (max-width: 576px) {
 
     .card-body {
-        padding: 25px;
+        padding: 20px;
     }
 
     h2 {
-        font-size: 24px;
+        font-size: 22px;
     }
 
 }
