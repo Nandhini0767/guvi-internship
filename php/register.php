@@ -1,6 +1,10 @@
 <?php
 
-echo "NEW FILE WORKING";
+echo "<pre>";
+echo "MYSQLHOST = " . getenv("MYSQLHOST") . PHP_EOL;
+echo "MYSQLUSER = " . getenv("MYSQLUSER") . PHP_EOL;
+echo "MYSQLDATABASE = " . getenv("MYSQLDATABASE") . PHP_EOL;
+echo "MYSQLPORT = " . getenv("MYSQLPORT") . PHP_EOL;
 exit();
 
 $conn = new mysqli(
@@ -10,7 +14,6 @@ $conn = new mysqli(
     getenv("MYSQLDATABASE"),
     getenv("MYSQLPORT")
 );
-
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
