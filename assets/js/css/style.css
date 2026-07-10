@@ -1,75 +1,96 @@
 body {
-    background: linear-gradient(135deg, #e3f2fd, #fce4ec);
-    min-height: 100vh;
+    background: #f4f7fb;
     font-family: Arial, sans-serif;
 }
 
 
-/* Main card */
+/* Main card design */
 .card {
+
     width: 100%;
-    max-width: 420px;
+    max-width: 450px;
+
     margin: auto;
-    border-radius: 10px;
+
+    border-radius: 15px;
+
     border: none;
+
 }
 
 
-/* Inside spacing */
-.card-body {
-    padding: 30px;
+/* Card shadow */
+.shadow {
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+
 }
 
 
-/* Heading */
+/* Card heading */
 h2 {
+
     font-size: 26px;
+
     font-weight: 600;
+
+    color: #333;
+
     white-space: nowrap;
+
 }
 
 
-/* Labels */
+
+/* Form labels */
 label {
+
     font-weight: 500;
+
+    margin-bottom: 5px;
+
 }
+
 
 
 /* Input boxes */
 .form-control {
-    height: 42px;
-    border-radius: 6px;
+
+    height: 45px;
+
+    border-radius: 8px;
+
 }
+
 
 
 /* Buttons */
 .btn {
-    height: 42px;
-    border-radius: 6px;
+
+    height: 45px;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
     font-weight: 500;
+
 }
 
 
-/* Links */
+
+/* Register/Login link */
+p {
+
+    font-size: 15px;
+
+}
+
+
 a {
+
     text-decoration: none;
-}
 
-
-a:hover {
-    text-decoration: underline;
-}
-
-
-/* Mobile view */
-@media (max-width: 576px) {
-
-    .card-body {
-        padding: 20px;
-    }
-
-    h2 {
-        font-size: 22px;
-    }
+    font-weight: 500;
 
 }
