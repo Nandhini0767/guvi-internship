@@ -1,11 +1,6 @@
 <?php
-header('Content-Type: application/json');
-
-use Predis\Client;
 
 header('Content-Type: application/json');
-
-$redis = new Client();
 
 $conn = new mysqli(
     getenv("MYSQLHOST"),
@@ -37,8 +32,6 @@ if ($user && password_verify($password, $user["password"])) {
 
     $token = bin2hex(random_bytes(16));
 
-    
-
     echo json_encode([
         "status" => "success",
         "token" => $token,
@@ -53,6 +46,7 @@ if ($user && password_verify($password, $user["password"])) {
     ]);
 }
 
+$stmt->close();
 $conn->close();
 
 ?>
