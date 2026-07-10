@@ -1,9 +1,5 @@
 <?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-require '../vendor/autoload.php';
+header('Content-Type: application/json');
 
 use Predis\Client;
 
@@ -41,8 +37,7 @@ if ($user && password_verify($password, $user["password"])) {
 
     $token = bin2hex(random_bytes(16));
 
-    $redis->set($token, $user["id"]);
-    $redis->expire($token, 3600);
+    
 
     echo json_encode([
         "status" => "success",
