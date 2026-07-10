@@ -1,5 +1,8 @@
 <?php
 
+echo "NEW FILE WORKING";
+exit();
+
 $conn = new mysqli(
     getenv("MYSQLHOST"),
     getenv("MYSQLUSER"),
@@ -7,6 +10,7 @@ $conn = new mysqli(
     getenv("MYSQLDATABASE"),
     getenv("MYSQLPORT")
 );
+
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
