@@ -24,8 +24,6 @@ $(document).ready(function () {
                     localStorage.setItem("name", res.name);
                     localStorage.setItem("email", res.email);
 
-                    alert("Login Successful!");
-
                     window.location.href = "profile.html";
 
                 } else {

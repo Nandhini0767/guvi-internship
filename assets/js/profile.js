@@ -10,6 +10,9 @@ $(document).ready(function () {
         return;
     }
 
+    // Automatically display logged-in email
+    $("#email").val(localStorage.getItem("email"));
+
     // Load profile
     $.ajax({
         url: "php/profile.php",
@@ -21,18 +24,27 @@ $(document).ready(function () {
         success: function (res) {
 
             if (res.status === "success") {
+
                 $("#name").val(res.name);
                 $("#age").val(res.age);
                 $("#dob").val(res.dob);
                 $("#contact").val(res.contact);
+
+                // Keep email after refresh
+                $("#email").val(localStorage.getItem("email"));
+
             } else {
+
                 alert(res.message);
+
             }
 
         },
         error: function (xhr) {
+
             console.log(xhr.responseText);
             alert("Error loading profile");
+
         }
     });
 
@@ -55,16 +67,23 @@ $(document).ready(function () {
             success: function (res) {
 
                 if (res.status === "success") {
+
                     alert("Profile updated successfully!");
+
                 } else {
+
                     alert(res.message);
+
                 }
 
             },
             error: function (xhr) {
+
                 console.log(xhr.responseText);
                 alert("Server Error!");
+
             }
+
         });
 
     });
