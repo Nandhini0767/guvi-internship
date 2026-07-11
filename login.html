@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>User Login</title>
 
     <!-- Bootstrap CSS -->
@@ -10,39 +12,28 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
 
 <body>
 
-
 <div class="container min-vh-100 d-flex align-items-center justify-content-center">
 
+    <div class="row justify-content-center w-100">
 
-    <div class="row w-100 justify-content-center">
-
-
-        <div class="col-md-7 col-lg-5"></div>
-
+        <div class="col-lg-6 col-md-8">
 
             <div class="card shadow">
 
-
-                <div class="card-body p-5">
-
+                <div class="card-body p-4">
 
                     <h2 class="text-center mb-4">
                         User Login
                     </h2>
 
-
-
                     <form id="loginForm">
 
-
                         <div class="mb-3">
-
-                            <label>Email</label>
+                            <label class="form-label">Email</label>
 
                             <input
                                 type="email"
@@ -50,14 +41,10 @@
                                 name="email"
                                 class="form-control"
                                 required>
-
                         </div>
 
-
-
-                        <div class="mb-3">
-
-                            <label>Password</label>
+                        <div class="mb-4">
+                            <label class="form-label">Password</label>
 
                             <input
                                 type="password"
@@ -65,10 +52,7 @@
                                 name="password"
                                 class="form-control"
                                 required>
-
                         </div>
-
-
 
                         <button
                             type="submit"
@@ -78,9 +62,7 @@
 
                         </button>
 
-
-
-                        <p class="text-center mt-3">
+                        <p class="text-center mt-3 mb-0">
 
                             Don't have an account?
 
@@ -90,32 +72,21 @@
 
                         </p>
 
-
-
                     </form>
-
 
                 </div>
 
-
             </div>
-
 
         </div>
 
-
     </div>
 
-
 </div>
-
-
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script src="assets/js/login.js"></script>
 
-
 </body>
-
 </html>

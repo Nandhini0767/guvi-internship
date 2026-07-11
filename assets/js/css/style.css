@@ -1,6 +1,6 @@
 body{
     background:#f4f7fb;
-    font-family:Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .container{
@@ -12,36 +12,52 @@ body{
 
 .card{
     width:100%;
-    max-width:600px;
+    max-width:700px;
     border:none;
     border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.10);
 }
 
 .card-body{
-    padding:40px;
-}
-
-.shadow-lg{
-    box-shadow:0 10px 30px rgba(0,0,0,.12)!important;
+    padding:35px;
 }
 
 h2{
-    font-size:32px;
+    font-size:30px;
     font-weight:600;
     color:#222;
+    margin-bottom:25px;
 }
 
 .form-label{
     font-weight:600;
+    color:#444;
 }
 
 .form-control{
     height:48px;
     border-radius:8px;
+    font-size:15px;
+}
+
+.form-control:focus{
+    box-shadow:none;
 }
 
 .btn{
     height:48px;
-    font-size:17px;
+    font-size:16px;
+    font-weight:600;
     border-radius:8px;
+}
+
+p{
+    margin-top:18px;
+    margin-bottom:0;
+    text-align:center;
+}
+
+a{
+    text-decoration:none;
+    font-weight:600;
 }
