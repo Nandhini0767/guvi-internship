@@ -12,24 +12,25 @@ body{
 
 .card{
     width:100%;
-    max-width: 800px;
+    max-width:800px;
     border:none;
     border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.10);
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
 
 .card-body{
-    padding:50px;
+    padding:40px;
 }
 
 h2{
-    font-size:30px;
+    font-size:28px;
     font-weight:600;
     color:#222;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
 
-.form-label{
+.form-label,
+label{
     font-weight:600;
     color:#444;
 }
@@ -40,10 +41,6 @@ h2{
     font-size:15px;
 }
 
-.form-control:focus{
-    box-shadow:none;
-}
-
 .btn{
     height:48px;
     font-size:16px;
@@ -52,8 +49,7 @@ h2{
 }
 
 p{
-    margin-top:18px;
-    margin-bottom:0;
+    margin-top:20px;
     text-align:center;
 }
 
