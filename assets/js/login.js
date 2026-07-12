@@ -4,6 +4,12 @@ $(document).ready(function () {
 
         e.preventDefault();
 
+        // Show loader
+        $("#loader").show();
+
+        // Disable Login button
+        $("button[type='submit']").prop("disabled", true);
+
         $.ajax({
 
             url: "php/login.php",
@@ -17,13 +23,18 @@ $(document).ready(function () {
 
             success: function (res) {
 
+                // Hide loader
+                $("#loader").hide();
+
+                // Enable Login button
+                $("button[type='submit']").prop("disabled", false);
+
                 if (res.status === "success") {
 
-                    // Store login details
+                    // Store only the token
                     localStorage.setItem("token", res.token);
-                    localStorage.setItem("name", res.name);
-                    localStorage.setItem("email", res.email);
 
+                    // Go directly to Profile page
                     window.location.href = "profile.html";
 
                 } else {
@@ -35,6 +46,12 @@ $(document).ready(function () {
             },
 
             error: function () {
+
+                // Hide loader
+                $("#loader").hide();
+
+                // Enable Login button
+                $("button[type='submit']").prop("disabled", false);
 
                 alert("Server Error!");
 
