@@ -63,8 +63,7 @@ try {
         echo json_encode([
             "status" => "success",
             "token" => $token,
-            "name" => $user["name"],
-            "email" => $user["email"]
+           
         ]);
 
     } else {

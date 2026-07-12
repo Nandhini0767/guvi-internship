@@ -1,70 +1,101 @@
 $(document).ready(function () {
 
-    console.log("Profile JS Loaded");
-
     let token = localStorage.getItem("token");
 
     if (!token) {
+
         alert("Please login first");
+
         window.location.href = "login.html";
+
         return;
+
     }
 
-    // Automatically display logged-in email
-    $("#email").val(localStorage.getItem("email"));
+    // Show loader while loading profile
+    $("#loader").show();
 
-    // Load profile
+    // Load Profile
     $.ajax({
+
         url: "php/profile.php",
+
         type: "POST",
+
         dataType: "json",
+
         data: {
+
             token: token
+
         },
+
         success: function (res) {
+
+            $("#loader").hide();
 
             if (res.status === "success") {
 
+                $("#email").val(res.email);
                 $("#name").val(res.name);
                 $("#age").val(res.age);
                 $("#dob").val(res.dob);
                 $("#contact").val(res.contact);
 
-                // Keep email after refresh
-                $("#email").val(localStorage.getItem("email"));
-
             } else {
 
                 alert(res.message);
 
+                window.location.href = "login.html";
+
             }
 
         },
+
         error: function (xhr) {
 
+            $("#loader").hide();
+
             console.log(xhr.responseText);
-            alert("Error loading profile");
+
+            alert("Error loading profile.");
 
         }
+
     });
 
-    // Save profile
+    // Save Profile
     $("#profileForm").submit(function (e) {
 
         e.preventDefault();
 
+        $("#loader").show();
+
         $.ajax({
+
             url: "php/profile.php",
+
             type: "POST",
+
             dataType: "json",
+
             data: {
+
                 token: token,
+
                 name: $("#name").val(),
+
                 age: $("#age").val(),
+
                 dob: $("#dob").val(),
+
                 contact: $("#contact").val()
+
             },
+
             success: function (res) {
+
+                $("#loader").hide();
 
                 if (res.status === "success") {
 
@@ -77,10 +108,45 @@ $(document).ready(function () {
                 }
 
             },
+
             error: function (xhr) {
 
+                $("#loader").hide();
+
                 console.log(xhr.responseText);
+
                 alert("Server Error!");
+
+            }
+
+        });
+
+    });
+
+    // Logout
+    $("#logoutBtn").click(function () {
+
+        $("#loader").show();
+
+        $.ajax({
+
+            url: "php/logout.php",
+
+            type: "POST",
+
+            dataType: "json",
+
+            data: {
+
+                token: token
+
+            },
+
+            complete: function () {
+
+                localStorage.removeItem("token");
+
+                window.location.href = "login.html";
 
             }
 

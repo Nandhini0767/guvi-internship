@@ -12,7 +12,7 @@ header('Content-Type: application/json');
 
 try {
 
-    // Redis connection
+    // Redis Connection
     $redis = new RedisClient([
         'scheme' => 'tcp',
         'host' => getenv("REDISHOST"),
@@ -20,25 +20,20 @@ try {
         'password' => getenv("REDISPASSWORD")
     ]);
 
-
-    // Check token
+    // Check Token
     if (!isset($_POST["token"])) {
 
         echo json_encode([
             "status" => "error",
             "message" => "Token missing"
         ]);
-
         exit;
     }
 
-
     $token = $_POST["token"];
 
-
-    // Get user id from Redis session
+    // Get User ID from Redis
     $user_id = $redis->get($token);
-
 
     if (!$user_id) {
 
@@ -46,27 +41,46 @@ try {
             "status" => "error",
             "message" => "Invalid session"
         ]);
-
         exit;
     }
 
-
-    // MongoDB connection
-    $client = new Client(
-        getenv("MONGODB_URI")
+    // MySQL Connection (Registered User Data)
+    $conn = new mysqli(
+        getenv("MYSQLHOST"),
+        getenv("MYSQLUSER"),
+        getenv("MYSQLPASSWORD"),
+        getenv("MYSQLDATABASE"),
+        getenv("MYSQLPORT")
     );
 
+    if ($conn->connect_error) {
+
+        echo json_encode([
+            "status" => "error",
+            "message" => "MySQL Connection Failed"
+        ]);
+        exit;
+    }
+
+    // Get Name & Email from MySQL
+    $stmt = $conn->prepare(
+        "SELECT name, email FROM users WHERE id = ?"
+    );
+
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    // MongoDB Connection (Profile Data)
+    $client = new Client(getenv("MONGODB_URI"));
 
     $database = $client->guvi;
-
     $collection = $database->profile;
 
-
-
     // SAVE PROFILE
-
     if (isset($_POST["name"])) {
-
 
         $profile = [
 
@@ -82,7 +96,6 @@ try {
 
         ];
 
-
         $collection->updateOne(
 
             ["user_id" => $user_id],
@@ -93,35 +106,26 @@ try {
 
         );
 
-
         echo json_encode([
-
             "status" => "success",
-
             "message" => "Profile saved successfully!"
-
         ]);
 
-
         exit;
-
     }
 
-
-
     // LOAD PROFILE
-
     $profile = $collection->findOne([
         "user_id" => $user_id
     ]);
-
-
 
     echo json_encode([
 
         "status" => "success",
 
-        "name" => $profile["name"] ?? "",
+        "email" => $user["email"] ?? "",
+
+        "name" => $user["name"] ?? "",
 
         "age" => $profile["age"] ?? "",
 
@@ -131,17 +135,14 @@ try {
 
     ]);
 
-
+    $stmt->close();
+    $conn->close();
 
 } catch (Exception $e) {
 
-
     echo json_encode([
-
         "status" => "error",
-
         "message" => $e->getMessage()
-
     ]);
 
 }
