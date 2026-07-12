@@ -4,6 +4,12 @@ $(document).ready(function () {
 
         e.preventDefault();
 
+        // Show loader
+        $("#loader").show();
+
+        // Disable Register button
+        $("button[type='submit']").prop("disabled", true);
+
         $.ajax({
 
             url: "php/register.php",
@@ -17,24 +23,35 @@ $(document).ready(function () {
 
             success: function (response) {
 
+                // Hide loader
+                $("#loader").hide();
+
+                // Enable Register button
+                $("button[type='submit']").prop("disabled", false);
+
                 alert(response);
 
                 // Clear the form
                 $("#registerForm")[0].reset();
 
-                // If registration was successful,
-                // automatically go to the login page
+                // Redirect to Login page after successful registration
                 if (response.includes("Registration Successful")) {
 
                     setTimeout(function () {
                         window.location.href = "login.html";
-                    }, 1000); // Redirect after 1 second
+                    }, 1000);
 
                 }
 
             },
 
             error: function () {
+
+                // Hide loader
+                $("#loader").hide();
+
+                // Enable Register button
+                $("button[type='submit']").prop("disabled", false);
 
                 alert("Server Error!");
 
